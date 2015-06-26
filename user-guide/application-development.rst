@@ -45,7 +45,8 @@ Example:
         "url": "git:git@github.com:zalando/bastion-host.git",
         "revision": "cd768599e1bb41c38279c26254feff5cf57bf967",
         "author": "hjacobs",
-        "status": ""
+        "status": "",
+        "timestamp": "Fr 26 Jun 2015 15:39:55 UTC"
     }
 
 An example implementation on how to generate the ``scm-source.json`` file with Bash:
@@ -56,11 +57,12 @@ An example implementation on how to generate the ``scm-source.json`` file with B
     REV=$(git rev-parse HEAD)
     URL=$(git config --get remote.origin.url)
     STATUS=$(git status --porcelain)
+    TIMESTAMP=$(date -u)
     if [ -n "$STATUS" ]; then
         REV="$REV (locally modified)"
     fi
     # finally write hand-crafted JSON to scm-source.json
-    echo '{"url": "git:'$URL'", "revision": "'$REV'", "author": "'$USER'", "status": "'$STATUS'"}' > scm-source.json
+    echo '{"url": "git:'$URL'", "revision": "'$REV'", "author": "'$USER'", "status": "'$STATUS'", "timestamp": "'$TIMESTAMP'"}' > scm-source.json
 
 There are plugins for Leiningen_ and Node_ that can automatically generate this file for you.
 
